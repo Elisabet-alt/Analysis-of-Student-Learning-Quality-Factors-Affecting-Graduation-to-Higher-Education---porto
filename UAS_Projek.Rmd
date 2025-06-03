@@ -1,0 +1,52 @@
+---
+title: "Projek UAS"
+author: "Elisabeth Lumban Tobing"
+date: "2023-05-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+install.packages("dplyr")
+update.packages(ask = FALSE)
+install.packages("rlang")
+
+update.packages("rlang")
+install.packages("rlang")
+lulus_UPT <- readxl::read_excel("Projek UAS.xlsx", sheet = "Sheet1")
+str(lulus_UPT)
+```
+
+Pemeriksaan awal data dalam Faktor Kelululusan Ujian Masuk Perguruan Tinggi (UPT)
+
+```{r cars}
+##untuk melihat ringkasan atau merangkum data
+summary(lulus_UPT)
+lulus_UPT
+
+##untuk mellihat struktur data
+head(lulus_UPT)
+str(lulus_UPT)
+tail(lulus_UPT)
+```
+Proses pengelempokkan data yang dibagi dalam bentuk variabel independent dan variabel dependent
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r pressure, echo=FALSE}
+
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r pressure, echo=FALSE}
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r pressure, echo=FALSE}
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r pressure, echo=FALSE}
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r pressure, echo=FALSE}
+```

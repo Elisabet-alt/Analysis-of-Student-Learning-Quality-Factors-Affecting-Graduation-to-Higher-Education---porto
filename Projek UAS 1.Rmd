@@ -1,0 +1,147 @@
+---
+title: "Projek UAS"
+author: "Elisabeth Lumban Tobing"
+date: "2023-05-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+lulus_UPT <- readxl::read_excel("Projek UAS.xlsx", sheet = "Sheet1")
+lulus_UPT
+```
+
+Pemeriksaan awal data
+```{r cars}
+summary(lulus_UPT)
+str(lulus_UPT)
+head(lulus_UPT)
+tail(lulus_UPT)
+```
+
+pengelompokkan data berdasarkan variabel independent dan dependent
+```{r pressure, echo=FALSE}
+##dataset dependent
+var_dependent <- data.frame(lulus_UPT$`Waktu tidur`, lulus_UPT$`Fasilitas belajar`, lulus_UPT$`Latihan Ujian`)
+summary.data.frame(var_dependent)
+
+##dataset independent
+var_independent <- data.frame(
+  'Rata-rata Jam Belajar' = lulus_UPT$`Rata-rata Jam Belajar`,
+  'Jam belajar di luar jam sekolah' = lulus_UPT$`Jam belajar di luar jam sekolah`,
+  'Dukungan Orang tua' = lulus_UPT$`Dukungan Orang tua`,
+  'Bimbingan belajar' = lulus_UPT$`Bimbingan belajar`,
+  'Tekanan Lingkungan' = lulus_UPT$`Tekanan Lingkungan`,
+  'Motivasi diri sendiri' = lulus_UPT$`Motivasi diri sendiri`,
+  'Strategi belajar' = lulus_UPT$`Strategi belajar`
+)
+summary.data.frame(var_independent)
+
+##korelasi dari data independent dan dependent
+x <- var_dependent
+y <- var_independent
+correlation <- cor(x, y)
+print(correlation)
+```
+Diagram untuk kedua variabel
+
+```{r pressure, echo=FALSE}
+hist(correlation, main = "Hubungan antara varabel independent dan dependent",
+     xlab = "Nilai",
+     ylab = "Frekuensi")
+```
+Menguji normalitas dalam penelitian Faktor Kelulusan Ujian Masuk Perguruan Tinggi
+
+```{r pressure, echo=FALSE}
+# Menguji normalitas distribusi untuk setiap kolom numerik dalam dataframe lulus_UPT
+for (col in names(lulus_UPT)) {
+  if (is.numeric(lulus_UPT[[col]])) {
+    result <- shapiro.test(lulus_UPT[[col]])
+    print(paste("Kolom:", col))
+    print(result)
+    print("----------------------------------------")
+  }
+}
+#gambaran visual
+  hist(lulus_UPT[[col]],
+       main = "Faktor Kelulusan Ujian Masuk Perguruan Tinggi",
+       col = "orange")
+  
+#Q-Q Plot untuk dataset Faktor Kelulusan Ujian Masuk Perguruan Tinggi
+qqnorm(lulus_UPT[[col]])
+qqline(lulus_UPT[[col]])
+```
+menguji 2 variabel kategorikan dalam data Faktor Kelulusan Ujian Perguruan Tinggi di Indonesia
+
+```{r pressure, echo=FALSE}
+#mengubah variabel ke vektor
+var_dependent <- unlist(var_dependent)
+var_independent <- unlist(var_independent)
+
+#memeriksa panjang kedua variabel untuk pengujian chi-square
+if (length(var_dependent) != length(var_independent)) {
+  min_length <- min(length(var_dependent), length(var_independent))
+  var_dependent <- var_dependent[1:min_length]
+  var_independent <- var_independent[1:min_length]
+}
+
+#menggabungkan kedua tabel menjadi satu
+contigency_table <- table(var_dependent, var_independent)
+
+#penguji chi-square
+hasil <- chisq.test(contigency_table)
+print(hasil)
+
+```
+Model regresi linear untuk variabel dependent dan independent
+```{r pressure, echo=FALSE}
+x <- var_dependent
+y <- var_independent
+
+#pembuata data frame
+data <- data.frame(x,y)
+
+#pengujian regresi linear
+linear <- lm(y ~ x, data = data)
+summary(linear)
+```
+Perbandingan dua kelompok variabel atau lebih terhadap data Faktor Kelulusan Seseorang Ujian Masuk Perguruan Tinggi
+
+```{r pressure, echo=FALSE}
+#melakukan regresi linear
+anova <- lm(var_dependent ~ var_independent, data = data)
+
+#pengujian ANOVA
+anova_result <- anova(anova)
+#hasil dari pengujian ANOVA
+print(anova_result)
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
